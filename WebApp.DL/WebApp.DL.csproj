@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\WebApp.MODELS\WebApp.MODELS.csproj" />
+  </ItemGroup>
+
 </Project>

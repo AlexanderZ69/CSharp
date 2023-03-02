@@ -1,3 +1,8 @@
+using WebApp.BL.Interfaces;
+using WebApp.BL.Services;
+using WebApp.DL.Interfaces;
+using WebApp.DL.Repositories;
+
 namespace WebApplicationNamespace
 { 
       public class Program 
@@ -8,7 +13,11 @@ namespace WebApplicationNamespace
 
                 // Add services to the container.
 
-                 builder.Services.AddControllers();
+                builder.Services.AddSingleton<IAuthorRepository, AuthorRepository>();
+                builder.Services.AddSingleton<IAuthorService, AuthorService>();
+
+
+            builder.Services.AddControllers();
                 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
                 builder.Services.AddEndpointsApiExplorer();
                 builder.Services.AddSwaggerGen();
