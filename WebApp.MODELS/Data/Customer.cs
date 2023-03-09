@@ -2,6 +2,6 @@
 {
     public class Customer : Person
     {
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
     }
 }
