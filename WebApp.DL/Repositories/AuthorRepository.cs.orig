@@ -13,9 +13,15 @@ namespace WebApp.DL.Repositories
 
         public Author GetById(int id)
         {
+<<<<<<< HEAD
             return DataStore.Authors
                    .FirstOrDefault(author => author.Id == id);
-
+=======
+            #pragma warning disable CS8603 // Possible null reference return.
+            return DataStore.Authors
+                .FirstOrDefault(author => author.Id == id);
+            #pragma warning restore CS8603 // Possible null reference return.
+>>>>>>> 63217c2ffe90ff7eafdfd988dc5cd50d253d068c
         }
 
         public void AddAuthor(Author author)
