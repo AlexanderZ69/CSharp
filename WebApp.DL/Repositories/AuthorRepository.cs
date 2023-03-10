@@ -13,17 +13,22 @@ namespace WebApp.DL.Repositories
 
         public Author GetById(int id)
         {
-            throw new NotImplementedException();
+            return DataStore.Authors
+                   .FirstOrDefault(author => author.Id == id);
         }
 
         public void AddAuthor(Author author)
         {
-            throw new NotImplementedException();
+            DataStore.Authors.Add(author);
         }
 
         public void DeleteAuthor(int id)
         {
-            throw new NotImplementedException();
+            var author = GetById(id);
+            if (author != null)
+            {
+                DataStore.Authors.Remove(author);
+            }
         }
     }
 }

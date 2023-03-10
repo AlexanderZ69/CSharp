@@ -19,5 +19,21 @@ namespace WebApp.DL.InMemoryDb
                 Bio = "Some Bio ..."
             }
         };
+
+        public static List<Book> Books = new List<Book>()
+           {
+                new Book()
+                {
+                    Id = 1,
+                    Name = "C# Programming",
+                    Description = "Some description ..."
+                },
+                new Book()
+                {
+                    Id = 2,
+                    Name = "Python Programming",
+                    Description = "Some description ..."
+                }
+           };
     }
 }
