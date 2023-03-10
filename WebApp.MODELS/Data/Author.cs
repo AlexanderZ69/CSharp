@@ -2,6 +2,6 @@
 {
     public class Author : Person
     {
-        public string? Bio { get; set; }    
+        public string Bio { get; set; }    
     }
 }
