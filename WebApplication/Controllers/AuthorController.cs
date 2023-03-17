@@ -1,8 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using WebApp.BL.Interfaces;
 using WebApp.MODELS.Data;
+using WebApp.MODELS.Request;
 
-namespace WebApplicationNamespace.Controllers
+namespace WebApplicationN.Controllers
 {
     [ApiController]
     [Route("[controller]")]
@@ -28,7 +29,7 @@ namespace WebApplicationNamespace.Controllers
         }
 
         [HttpPost("Add")]
-        public void Add([FromBody] Author author)
+        public void Add([FromBody] AddAuthorRequest author)
         {
             _authorService.AddAuthor(author);
         }

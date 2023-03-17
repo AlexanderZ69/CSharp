@@ -4,7 +4,7 @@ using WebApp.BL.Interfaces;
 using WebApp.MODELS.Data;
 using WebApp.MODELS.Request;
 
-namespace WebApplication.Controllers
+namespace WebApplicationN.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

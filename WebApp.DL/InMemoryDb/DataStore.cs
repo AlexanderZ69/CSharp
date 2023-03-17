@@ -21,19 +21,28 @@ namespace WebApp.DL.InMemoryDb
         };
 
         public static List<Book> Books = new List<Book>()
-           {
-                new Book()
-                {
-                    Id = 1,
-                    Name = "C# Programming",
-                    Description = "Some description ..."
-                },
-                new Book()
-                {
-                    Id = 2,
-                    Name = "Python Programming",
-                    Description = "Some description ..."
-                }
-           };
+        {
+            new Book()
+            {
+                Id = 1,
+                Name = "C# Programming",
+                Description = "Some description ...",
+                AuthorId = 1
+            },
+            new Book()
+            {
+                Id = 2,
+                Name = "Python Programming",
+                Description = "Some description ...",
+                AuthorId = 2
+            },
+            new Book()
+            {
+                Id = 3,
+                Name = "Python Programming 2",
+                Description = "Some description ...",
+                AuthorId = 2
+            }
+        };
     }
 }

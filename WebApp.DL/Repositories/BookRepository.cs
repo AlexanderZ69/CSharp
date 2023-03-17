@@ -11,6 +11,11 @@ namespace WebApp.DL.Repositories
             return DataStore.Books;
         }
 
+        IEnumerable<Book> IBookRepository.GetAllByAuthorId(int authorId)
+        {
+            return DataStore.Books.Where(b => b.AuthorId == authorId);
+        }
+
         public Book GetById(int id)
         {
             return DataStore.Books

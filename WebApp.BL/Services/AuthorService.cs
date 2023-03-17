@@ -1,6 +1,8 @@
 ﻿using WebApp.BL.Interfaces;
 using WebApp.DL.Interfaces;
+using WebApp.DL.Repositories;
 using WebApp.MODELS.Data;
+using WebApp.MODELS.Request;
 
 namespace WebApp.BL.Services
 {
@@ -22,8 +24,17 @@ namespace WebApp.BL.Services
             return _authorRepository.GetById(id);
         }
 
-        public void AddAuthor(Author author)
+        public void AddAuthor(AddAuthorRequest authorRequest)
         {
+            var author = new Author()
+            {
+                Id = _authorRepository.GetAll()
+                    .OrderByDescending(x => x.Id)
+                    .FirstOrDefault().Id + 1,
+                Bio = authorRequest.Bio,
+                Name = authorRequest.Name
+            };
+
             _authorRepository.AddAuthor(author);
         }
 

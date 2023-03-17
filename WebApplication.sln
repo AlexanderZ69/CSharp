@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication", "WebApplication\WebApplication.csproj", "{142E26B5-9F17-46F4-B497-220011EE0F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplicationN", "WebApplication\WebApplicationN.csproj", "{142E26B5-9F17-46F4-B497-220011EE0F38}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.BL", "WebApp.BL\WebApp.BL.csproj", "{CB4FD0AF-7855-4C72-A049-6F31CF4871E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.BL", "WebApp.BL\WebApp.BL.csproj", "{CB4FD0AF-7855-4C72-A049-6F31CF4871E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.DL", "WebApp.DL\WebApp.DL.csproj", "{39783D99-4085-48E4-B2C9-13E22AE77929}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.DL", "WebApp.DL\WebApp.DL.csproj", "{39783D99-4085-48E4-B2C9-13E22AE77929}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.MODELS", "WebApp.MODELS\WebApp.MODELS.csproj", "{3A2BFE98-9213-4AB3-9A2B-8A84BA3A44C4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApp.MODELS", "WebApp.MODELS\WebApp.MODELS.csproj", "{3A2BFE98-9213-4AB3-9A2B-8A84BA3A44C4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

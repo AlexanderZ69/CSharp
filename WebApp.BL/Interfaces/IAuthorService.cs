@@ -1,4 +1,5 @@
 ﻿using WebApp.MODELS.Data;
+using WebApp.MODELS.Request;
 
 namespace WebApp.BL.Interfaces
 {
@@ -8,7 +9,7 @@ namespace WebApp.BL.Interfaces
 
         Author GetById(int id);
 
-        void AddAuthor(Author author);
+        void AddAuthor(AddAuthorRequest author);
 
         void DeleteAuthor(int id);
     }
