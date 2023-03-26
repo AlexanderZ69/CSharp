@@ -9,9 +9,10 @@ namespace WebApp.BL.Services
         private readonly IAuthorRepository _authorRepository;
         private readonly IBookRepository _bookRepository;   
 
-        public LibraryService(IAuthorRepository authorRepository) 
+        public LibraryService(IAuthorRepository authorRepository, IBookRepository bookRepository) 
         { 
-            _authorRepository = authorRepository;   
+            _authorRepository = authorRepository;
+            _bookRepository = bookRepository;
         }
 
         public GetAllBooksByAuthorResponse GetAllBooksByAuthor(int authorId) 

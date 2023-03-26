@@ -23,7 +23,7 @@ namespace WebApplicationN.Controllers
         }
 
         [HttpGet("GetById")]
-        public Author GetById(int id)
+        public Author? GetById(int id)
         {
             return _authorService.GetById(id);
         }

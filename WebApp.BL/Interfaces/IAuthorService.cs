@@ -7,7 +7,7 @@ namespace WebApp.BL.Interfaces
     {
         IEnumerable<Author> GetAll();
 
-        Author GetById(int id);
+        Author? GetById(int id);
 
         void AddAuthor(AddAuthorRequest author);
 

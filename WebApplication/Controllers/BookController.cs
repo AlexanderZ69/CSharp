@@ -24,7 +24,7 @@ namespace WebApplicationN.Controllers
         }
 
         [HttpGet("GetById")]
-        public Book GetById(int id)
+        public Book? GetById(int id)
         {
             return _bookService.GetById(id);
         }

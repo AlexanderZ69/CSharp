@@ -1,3 +1,5 @@
+using Serilog;
+using Serilog.Sinks.SystemConsole.Themes;
 using WebApp.BL.Interfaces;
 using WebApp.BL.Services;
 using WebApp.DL.Interfaces;
@@ -9,7 +11,15 @@ namespace WebApplicationN
     {
         public static void Main(string[] args)
         {
+            var logger = new LoggerConfiguration()
+                .Enrich.FromLogContext()
+                .WriteTo.Console(theme: AnsiConsoleTheme.Code)
+                .WriteTo.File("log-.txt", rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
             var builder = WebApplication.CreateBuilder(args);
+
+            builder.Logging.AddSerilog(logger);
 
             // Add services to the container.
 

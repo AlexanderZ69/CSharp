@@ -1,4 +1,5 @@
-﻿using WebApp.BL.Interfaces;
+﻿using Microsoft.Extensions.Logging;
+using WebApp.BL.Interfaces;
 using WebApp.DL.Interfaces;
 using WebApp.MODELS.Data;
 using WebApp.MODELS.Request;
@@ -8,10 +9,12 @@ namespace WebApp.BL.Services
     public class BookService : IBookService
     {
         private readonly IBookRepository _bookRepository;
+        private readonly ILogger<BookService> _logger;
 
-        public BookService(IBookRepository bookRepository)
+        public BookService(IBookRepository bookRepository, ILogger<BookService> logger)
         {
             _bookRepository = bookRepository;
+            _logger = logger;
         }
 
         public IEnumerable<Book> GetAll()
@@ -19,9 +22,15 @@ namespace WebApp.BL.Services
             return _bookRepository.GetAll();
         }
 
-        public Book GetById(int id)
+        public Book? GetById(int id)
         {
-            return _bookRepository.GetById(id);
+            var book = _bookRepository.GetById(id);
+
+            if (book == null) 
+            {
+                _logger.LogError($"GetById:{id}");
+            }
+            return book;
         }
 
         public void Add(AddBookRequest bookRequest)

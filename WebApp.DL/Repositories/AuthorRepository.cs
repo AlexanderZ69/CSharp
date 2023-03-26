@@ -11,7 +11,7 @@ namespace WebApp.DL.Repositories
             return DataStore.Authors;
         }
 
-        public Author GetById(int id)
+        public Author? GetById(int id)
         {
             return DataStore.Authors
                    .FirstOrDefault(author => author.Id == id);

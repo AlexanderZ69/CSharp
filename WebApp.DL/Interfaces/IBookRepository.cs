@@ -6,7 +6,7 @@ namespace WebApp.DL.Interfaces
     {
         IEnumerable<Book> GetAll();
         IEnumerable<Book> GetAllByAuthorId(int authorId);
-        Book GetById(int id);
+        Book? GetById(int id);
 
         void Add(Book author);
 

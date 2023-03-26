@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="12.0.1" />
+    <PackageReference Include="Serilog.AspNetCore" Version="6.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\WebApp.DL\WebApp.DL.csproj" />
     <ProjectReference Include="..\WebApp.MODELS\WebApp.MODELS.csproj" />
   </ItemGroup>

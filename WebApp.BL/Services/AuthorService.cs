@@ -1,4 +1,6 @@
-﻿using WebApp.BL.Interfaces;
+﻿using AutoMapper;
+using Microsoft.Extensions.Logging;
+using WebApp.BL.Interfaces;
 using WebApp.DL.Interfaces;
 using WebApp.DL.Repositories;
 using WebApp.MODELS.Data;
@@ -9,9 +11,13 @@ namespace WebApp.BL.Services
     public class AuthorService : IAuthorService
     {
         private readonly IAuthorRepository _authorRepository;
-        public AuthorService(IAuthorRepository authorRepository)
+        private readonly IMapper _mapper;
+        private readonly ILogger<AuthorService> _logger;
+        public AuthorService(IAuthorRepository authorRepository, IMapper mapper, ILogger<AuthorService> logger)
         {
             _authorRepository = authorRepository;
+            _mapper = mapper;
+            _logger = logger;
         }
 
         public IEnumerable<Author> GetAll()
@@ -19,20 +25,24 @@ namespace WebApp.BL.Services
             return _authorRepository.GetAll();
         }
 
-        public Author GetById(int id)
+        public Author? GetById(int id)
         {
-            return _authorRepository.GetById(id);
+            var author = _authorRepository.GetById(id);
+            if (author == null)
+            {
+                _logger.LogError($"GetById:{id}");
+            }
+            return author;
         }
 
         public void AddAuthor(AddAuthorRequest authorRequest)
         {
-            var author = new Author()
+            var author = _mapper.Map<Author>(authorRequest);
             {
-                Id = _authorRepository.GetAll()
-                    .OrderByDescending(x => x.Id)
-                    .FirstOrDefault().Id + 1,
-                Bio = authorRequest.Bio,
-                Name = authorRequest.Name
+                author.Id = _authorRepository.GetAll()
+               .OrderByDescending(x => x.Id).First().Id + 1;
+
+                _authorRepository.AddAuthor(author);
             };
 
             _authorRepository.AddAuthor(author);
