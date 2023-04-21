@@ -11,46 +11,52 @@ namespace WebApp.BL.Services
         private readonly IBookRepository _bookRepository;
         private readonly ILogger<BookService> _logger;
 
-        public BookService(IBookRepository bookRepository, ILogger<BookService> logger)
+        public BookService(IBookRepository bookRepository,
+            ILogger<BookService> logger)
         {
             _bookRepository = bookRepository;
             _logger = logger;
         }
 
-        public IEnumerable<Book> GetAll()
+        public async Task<IEnumerable<Book>> GetAll()
         {
-            return _bookRepository.GetAll();
+            var result =
+                 await _bookRepository.GetAll();
+
+            return result;
+
         }
 
-        public Book? GetById(int id)
+        public async Task<Book?> GetById(Guid id)
         {
-            var book = _bookRepository.GetById(id);
+            var book = await _bookRepository.GetById(id);
 
-            if (book == null) 
+            if (book == null)
             {
-                _logger.LogError($"GetById:{id}");
+                _logger.LogError($"GetById:{id} returns null!");
+                return null;
             }
+
             return book;
         }
 
-        public void Add(AddBookRequest bookRequest)
+        public async Task Add(AddBookRequest bookRequest)
         {
             var book = new Book()
             {
-                Id = _bookRepository.GetAll()
-                    .OrderByDescending(x => x.Id)
-                    .FirstOrDefault().Id + 1,
+                Id = Guid.NewGuid(),
                 Description = bookRequest.Description,
                 AuthorId = bookRequest.AuthorId,
-                Name = bookRequest.Name
+                Title = bookRequest.Name
             };
 
-            _bookRepository.Add(book);
+            await _bookRepository.Add(book);
         }
 
-        public void Delete(int id)
+        public async Task Delete(Guid id)
         {
-            _bookRepository.Delete(id);
+            await _bookRepository.Delete(id);
         }
     }
 }
+

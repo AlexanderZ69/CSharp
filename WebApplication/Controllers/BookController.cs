@@ -18,27 +18,27 @@ namespace WebApplicationN.Controllers
         }
 
         [HttpGet("GetAll")]
-        public IEnumerable<Book> GetAll()
+        public async Task<IEnumerable<Book>> GetAll()
         {
-            return _bookService.GetAll();
+            return await _bookService.GetAll();
         }
 
         [HttpGet("GetById")]
-        public Book? GetById(int id)
+        public async Task<Book?> GetById(Guid id)
         {
-            return _bookService.GetById(id);
+            return await _bookService.GetById(id);
         }
 
         [HttpPost("Add")]
-        public void Add([FromBody] AddBookRequest book)
+        public async Task Add([FromBody] AddBookRequest book)
         {
-            _bookService.Add(book);
+            await _bookService.Add(book);
         }
 
         [HttpDelete("Delete")]
-        public void Delete(int bookId)
+        public async Task Delete(Guid bookId)
         {
-            _bookService.Delete(bookId);
+            await _bookService.Delete(bookId);
         }
     }
 }

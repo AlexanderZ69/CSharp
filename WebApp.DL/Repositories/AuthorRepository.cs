@@ -1,34 +1,51 @@
-﻿using WebApp.DL.InMemoryDb;
-using WebApp.DL.Interfaces;
+﻿using WebApp.DL.Interfaces;
+using WebApp.MODELS.Configs;
 using WebApp.MODELS.Data;
+using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 
 namespace WebApp.DL.Repositories
 {
     public class AuthorRepository : IAuthorRepository
     {
-        public IEnumerable<Author> GetAll()
+        private readonly IMongoCollection<Author> _authors;
+        private readonly IOptionsMonitor<MongoConfiguration> _config;
+
+        public AuthorRepository(
+            IOptionsMonitor<MongoConfiguration> config)
         {
-            return DataStore.Authors;
+            _config = config;
+            var client =
+                new MongoClient(_config.CurrentValue.ConnectionString);
+            var database =
+                client.GetDatabase(_config.CurrentValue.DatabaseName);
+
+            _authors =
+                database.GetCollection<Author>($"{nameof(Author)}");
         }
 
-        public Author? GetById(int id)
+        public async Task<IEnumerable<Author>> GetAll()
         {
-            return DataStore.Authors
-                   .FirstOrDefault(author => author.Id == id);
+            return await _authors.Find(author => true)
+                .ToListAsync();
         }
 
-        public void AddAuthor(Author author)
+        public async Task<Author> GetById(Guid id)
         {
-            DataStore.Authors.Add(author);
+            return await _authors
+                .Find(a => a.Id == id)
+                .FirstOrDefaultAsync();
         }
 
-        public void DeleteAuthor(int id)
+        public async Task AddAuthor(Author author)
         {
-            var author = GetById(id);
-            if (author != null)
-            {
-                DataStore.Authors.Remove(author);
-            }
+            await _authors.InsertOneAsync(author);
+        }
+
+        public async Task DeleteAuthor(Guid id)
+        {
+            await _authors
+                .DeleteOneAsync(a => a.Id == id);
         }
     }
 }

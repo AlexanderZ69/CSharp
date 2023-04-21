@@ -4,12 +4,10 @@ namespace WebApp.DL.Interfaces
 {
     public interface IBookRepository
     {
-        IEnumerable<Book> GetAll();
-        IEnumerable<Book> GetAllByAuthorId(int authorId);
-        Book? GetById(int id);
-
-        void Add(Book author);
-
-        void Delete(int id);
+        Task<IEnumerable<Book>> GetAll();
+        Task<IEnumerable<Book>> GetAllByAuthorId(Guid authorId);
+        Task <Book?> GetById(Guid id);
+        Task Add(Book author);
+        Task Delete(Guid id);
     }
 }

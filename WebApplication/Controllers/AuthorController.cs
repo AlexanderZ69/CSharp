@@ -16,28 +16,47 @@ namespace WebApplicationN.Controllers
             _authorService = authorService;
         }
 
+        [ProducesResponseType(
+            StatusCodes.Status200OK,
+            Type = typeof(IEnumerable<Author>))]
         [HttpGet("GetAll")]
-        public IEnumerable<Author> GetAll()
+        public async Task<IActionResult> GetAll()
         {
-            return _authorService.GetAll(); 
+            return Ok(await _authorService.GetAll());
         }
 
+        [ProducesResponseType(
+            StatusCodes.Status200OK,
+            Type = typeof(Author))]
+        [ProducesResponseType(
+            StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(
+            StatusCodes.Status404NotFound)]
         [HttpGet("GetById")]
-        public Author? GetById(int id)
+        public async Task<IActionResult> GetById(Guid id)
         {
-            return _authorService.GetById(id);
+            //if (Guid.) return BadRequest(id);
+
+            var result = await _authorService.GetById(id);
+
+            if (result == null) return NotFound();
+
+            return Ok(result);
         }
 
         [HttpPost("Add")]
-        public void Add([FromBody] AddAuthorRequest author)
+        public async Task<IActionResult> Add([FromBody] AddAuthorRequest author)
         {
-            _authorService.AddAuthor(author);
+            await _authorService.AddAuthor(author);
+            return Ok();
         }
 
         [HttpDelete("Delete")]
-        public void Delete(int authorId)
+        public async Task<IActionResult> Delete(Guid authorId)
         {
-            _authorService.DeleteAuthor(authorId);
+            await _authorService.DeleteAuthor(authorId);
+
+            return Ok();
         }
     }
 }

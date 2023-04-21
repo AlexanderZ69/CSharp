@@ -4,7 +4,7 @@ namespace WebApp.BL.Interfaces
 {
     public interface ILibraryService
     {
-        GetAllBooksByAuthorResponse 
-            GetAllBooksByAuthor(int authorId);
+        Task<GetAllBooksByAuthorResponse>
+            GetAllBooksByAuthor(Guid authorId);
     }
 }

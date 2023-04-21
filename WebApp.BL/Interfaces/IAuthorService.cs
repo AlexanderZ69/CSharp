@@ -5,12 +5,9 @@ namespace WebApp.BL.Interfaces
 {
     public interface IAuthorService
     {
-        IEnumerable<Author> GetAll();
-
-        Author? GetById(int id);
-
-        void AddAuthor(AddAuthorRequest author);
-
-        void DeleteAuthor(int id);
+        Task<IEnumerable<Author>> GetAll();
+        Task<Author> GetById(Guid id);
+        Task AddAuthor(AddAuthorRequest author);
+        Task DeleteAuthor(Guid id);
     }
 }

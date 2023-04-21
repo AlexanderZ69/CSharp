@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using MongoDB.Bson.Serialization.Attributes;
 
 namespace WebApp.MODELS.Data
 {
     public class Book
     {
-        public int Id { get; set; }
+        [BsonId]
+        [BsonElement("_id")]
+        public Guid Id { get; set; }
 
-        public string Name { get; set; }
+        public string Title { get; set; }
 
-        public int AuthorId { get; set; }
+        public Guid AuthorId { get; set; }
 
         public string Description { get; set; }
     }

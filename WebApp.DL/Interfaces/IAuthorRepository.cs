@@ -4,12 +4,12 @@ namespace WebApp.DL.Interfaces
 {
     public interface IAuthorRepository
     {
-        IEnumerable<Author> GetAll();
+        Task<IEnumerable<Author>> GetAll();
 
-        Author GetById(int id);
+        Task<Author> GetById(Guid id);
 
-        void AddAuthor(Author author);
+        Task AddAuthor(Author author);
 
-        void DeleteAuthor(int id);
+        Task DeleteAuthor(Guid id);
     }
 }

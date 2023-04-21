@@ -1,39 +1,58 @@
-﻿using WebApp.DL.InMemoryDb;
+﻿using Microsoft.Extensions.Options;
+using MongoDB.Driver;
 using WebApp.DL.Interfaces;
+using WebApp.MODELS.Configs;
 using WebApp.MODELS.Data;
 
 namespace WebApp.DL.Repositories
 {
     public class BookRepository : IBookRepository
     {
-        public IEnumerable<Book> GetAll()
+        private readonly IMongoCollection<Book> _books;
+        private readonly IOptionsMonitor<MongoConfiguration> _config;
+
+        public BookRepository(
+            IOptionsMonitor<MongoConfiguration> config)
         {
-            return DataStore.Books;
+            _config = config;
+            var client =
+                new MongoClient(_config.CurrentValue.ConnectionString);
+            var database =
+                client.GetDatabase(_config.CurrentValue.DatabaseName);
+
+            _books =
+                database.GetCollection<Book>($"{nameof(Book)}");
         }
 
-        IEnumerable<Book> IBookRepository.GetAllByAuthorId(int authorId)
+        public async Task<IEnumerable<Book>> GetAll()
         {
-            return DataStore.Books.Where(b => b.AuthorId == authorId);
+            return await _books.Find(book => true)
+                .ToListAsync();
         }
 
-        public Book? GetById(int id)
+        public async Task<IEnumerable<Book>> GetAllByAuthorId(Guid authorId)
         {
-            return DataStore.Books
-                .FirstOrDefault(x => x.Id == id);
+            return await _books
+                .Find(a => a.AuthorId == authorId)
+                .ToListAsync();
         }
 
-        public void Add(Book book)
+        public async Task<Book?> GetById(Guid id)
         {
-            DataStore.Books.Add(book);
+            return await _books
+                .Find(a => a.Id == id)
+                .FirstOrDefaultAsync();
         }
 
-        public void Delete(int id)
+        public async Task Add(Book author)
         {
-            var book = GetById(id);
-            if (book != null)
-            {
-                DataStore.Books.Remove(book);
-            }
+            await _books.InsertOneAsync(author);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            await _books
+                .DeleteOneAsync(a => a.Id == id);
         }
     }
 }

@@ -10,15 +10,22 @@ namespace WebApplicationN.Controllers
     public class LibraryController : ControllerBase
     {
         private readonly ILibraryService _libraryService;
+
         public LibraryController(ILibraryService libraryService)
         {
             _libraryService = libraryService;
         }
 
-        [HttpGet]
-        GetAllBooksByAuthorResponse GetAllBooksByAuthor(int authorId)
+        [HttpGet("GetAllBooksByAuthor")]
+        public async Task<IActionResult>
+            GetAllBooksByAuthor(Guid authorId)
         {
-            return _libraryService.GetAllBooksByAuthor(authorId);
+            var result =
+                await _libraryService.GetAllBooksByAuthor(authorId);
+
+            if (result?.Author == null) return NotFound(authorId);
+
+            return Ok(result);
         }
     }
 }

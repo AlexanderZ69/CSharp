@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace WebApp.MODELS.Configs
 {
-    internal class MongoConfiguration
+    public class MongoConfiguration
     {
+        public string ConnectionString { get; set; }
+        public string DatabaseName { get; set; }
     }
 }

@@ -1,8 +1,6 @@
 ﻿using AutoMapper;
-using Microsoft.Extensions.Logging;
 using WebApp.BL.Interfaces;
 using WebApp.DL.Interfaces;
-using WebApp.DL.Repositories;
 using WebApp.MODELS.Data;
 using WebApp.MODELS.Request;
 
@@ -12,45 +10,37 @@ namespace WebApp.BL.Services
     {
         private readonly IAuthorRepository _authorRepository;
         private readonly IMapper _mapper;
-        private readonly ILogger<AuthorService> _logger;
-        public AuthorService(IAuthorRepository authorRepository, IMapper mapper, ILogger<AuthorService> logger)
+
+        public AuthorService(
+            IAuthorRepository authorRepository,
+            IMapper mapper)
         {
             _authorRepository = authorRepository;
             _mapper = mapper;
-            _logger = logger;
         }
 
-        public IEnumerable<Author> GetAll()
+        public async Task<IEnumerable<Author>> GetAll()
         {
-            return _authorRepository.GetAll();
+            return await _authorRepository.GetAll();
         }
 
-        public Author? GetById(int id)
+        public async Task<Author> GetById(Guid id)
         {
-            var author = _authorRepository.GetById(id);
-            if (author == null)
-            {
-                _logger.LogError($"GetById:{id}");
-            }
-            return author;
+            return await _authorRepository.GetById(id);
         }
 
-        public void AddAuthor(AddAuthorRequest authorRequest)
+        public async Task AddAuthor(AddAuthorRequest authorRequest)
         {
             var author = _mapper.Map<Author>(authorRequest);
-            {
-                author.Id = _authorRepository.GetAll()
-               .OrderByDescending(x => x.Id).First().Id + 1;
 
-                _authorRepository.AddAuthor(author);
-            };
+            author.Id = Guid.NewGuid();
 
-            _authorRepository.AddAuthor(author);
+            await _authorRepository.AddAuthor(author);
         }
 
-        public void DeleteAuthor(int id)
+        public async Task DeleteAuthor(Guid id)
         {
-            _authorRepository.DeleteAuthor(id);
+            await _authorRepository.DeleteAuthor(id);
         }
     }
 }

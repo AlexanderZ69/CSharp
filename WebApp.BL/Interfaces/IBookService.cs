@@ -5,12 +5,9 @@ namespace WebApp.BL.Interfaces
 {
     public interface IBookService
     {
-        IEnumerable<Book> GetAll();
-
-        Book? GetById(int id);
-
-        void Add(AddBookRequest author);
-
-        void Delete(int id);
+        Task<IEnumerable<Book>> GetAll();
+        Task<Book?> GetById(Guid id);
+        Task Add(AddBookRequest author);
+        Task Delete(Guid id);
     }
 }
