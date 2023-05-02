@@ -10,6 +10,8 @@ using WebApp.DL.Repositories;
 using WebApp.MODELS.Configs;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using WebApplicationN.Extensions;
+using WebApplicationN.HealthChecks;
 
 namespace WebApplicationN
 {
@@ -55,6 +57,10 @@ namespace WebApplicationN
             builder.Services.AddFluentValidationAutoValidation().AddFluentValidationClientsideAdapters();
             builder.Services.AddValidatorsFromAssemblyContaining(typeof(Program));
 
+            builder.Services.AddHealthChecks()
+                .AddCheck<MongoHealthCheck>("MongoDB")
+                .AddUrlGroup(new Uri ("https://www.google.com/"), "My Service");
+
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -67,6 +73,8 @@ namespace WebApplicationN
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
+
+            app.RegisterHealthCheck();
 
             app.MapControllers();
 
