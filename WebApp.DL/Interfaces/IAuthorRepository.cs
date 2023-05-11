@@ -6,7 +6,7 @@ namespace WebApp.DL.Interfaces
     {
         Task<IEnumerable<Author>> GetAll();
 
-        Task<Author> GetById(Guid id);
+        Task<Author?> GetById(Guid id);
 
         Task AddAuthor(Author author);
 

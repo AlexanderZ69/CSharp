@@ -24,9 +24,14 @@ namespace WebApp.BL.Services
             return await _authorRepository.GetAll();
         }
 
-        public async Task<Author> GetById(Guid id)
+        public async Task<Author?> GetById(Guid id)
         {
-            return await _authorRepository.GetById(id);
+            // return await _authorRepository.GetById(id);
+            var result = await _authorRepository.GetById(id);
+            if (result == null) return null;
+            result.Name = $"@{result.Name}";
+
+            return result;
         }
 
         public async Task AddAuthor(AddAuthorRequest authorRequest)

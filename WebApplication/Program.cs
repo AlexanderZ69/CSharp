@@ -19,6 +19,8 @@ namespace WebApplicationN
     {
         public static void Main(string[] args)
         {
+            // var guid = Guid.NewGuid().ToString(); (Generate Guid code with debugging)
+
             var logger = new LoggerConfiguration()
                 .Enrich.FromLogContext()
                 .WriteTo.Console(theme: AnsiConsoleTheme.Code)
@@ -44,6 +46,10 @@ namespace WebApplicationN
                 .AddSingleton<IBookRepository, BookRepository>();
             builder.Services
                 .AddSingleton<IBookService, BookService>();
+            builder.Services
+                .AddSingleton<IUserInfoRepository, UserInfoRepository>();
+            builder.Services
+                .AddSingleton<IUserInfoService, UserInfoService>();
             builder.Services
                 .AddSingleton<ILibraryService, LibraryService>();
 
