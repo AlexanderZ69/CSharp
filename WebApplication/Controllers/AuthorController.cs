@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using WebApp.BL.Interfaces;
 using WebApp.MODELS.Data;
 using WebApp.MODELS.Request;
+using Microsoft.AspNetCore.Authorization;
 
 namespace WebApplicationN.Controllers
 {
@@ -20,6 +21,7 @@ namespace WebApplicationN.Controllers
             StatusCodes.Status200OK,
             Type = typeof(IEnumerable<Author>))]
         [HttpGet("GetAll")]
+        [Authorize]
         public async Task<IActionResult> GetAll()
         {
             return Ok(await _authorService.GetAll());
