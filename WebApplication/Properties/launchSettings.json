@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "WebApplication": {
+    "BookStore": { // WebApplicatioN
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
